@@ -69,3 +69,37 @@ class Animal {
 
 
 //propiedad computada:  Función para acceder a una propiedad con modificaciones (getter/setter).        
+
+//REVIEW:)
+class Clientes {
+    constructor(nombre, apellido, edad, numeroTelefonico, numeroCuenta){
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+        this.numeroTelefonico = numeroTelefonico;
+        this.numeroCuenta = numeroCuenta;
+    }
+    monstrarCliente() {
+        console.log("-informacion del usuario-");
+        console.log("Nombre: ${this.nombre} ${this.apellido}.");
+        console.log("Edad: ${this.edad}.");
+        console.log("Num Telefonico: ${this.numeroTelefonico}");
+        console.log("Num Cuenta: ${this.numeroCuenta}");
+    }
+}
+
+class Cuentabancaria {
+    constructor(numeroCuenta, saldo) {
+        this.numeroCuenta = numeroCuenta;
+        this.saldo = saldo;
+    }
+    consignar(cantidad){
+        if(typeof cantidad === 'number' && cantidad >0) {
+            this.saldo += cantidad;
+            console.log("Ingreso de: ${this.saldo} al numero de cuenta: ${this.numeroCuenta} fue realizado exitosamente");
+            console.log("Tu nuevo saldo es: ${this.saldo}.");
+        }else{
+            console.warn("Error la cantidad a consignar debe ser un numero mayor a 0, de lo contrario no se realizara ninguna consignacion.");
+        }
+    }
+}
