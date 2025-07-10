@@ -103,3 +103,118 @@ class Cuentabancaria {
         }
     }
 }
+
+
+
+
+//--------MATERIAL DE LA CLASE--------------
+
+
+// //clases-sintaxis
+// class Persona {
+//     constructor(nombre, edad) {
+//       this.nombre = nombre;
+//       this.edad = edad;
+//     }
+
+//     saludar() {
+//       console.log(`Hola, mi nombre es ${this.nombre} y tengo ${this.edad} años.`);
+//     }
+// }
+
+
+
+
+// //Declaración de una clase (de momento, vacía)
+// class equipos {}
+// // Crear (instanciar) un objeto basada en una clase
+// const nacional = new equipos
+
+
+// //clases-metodos
+// class Animal {
+//     // Propiedades
+//     name = "Garfield";
+//     type = "cat";
+   
+//  // Métodos
+//  hablar() {
+//    return "¡Como Lasagña!"
+//     }
+// }
+
+
+// //propiedad computada:  Función para acceder a una propiedad con modificaciones (getter/setter).
+
+
+// class Animal {
+//     constructor(nombre){
+//         this.nombre = nombre;
+//     }
+
+
+//     hablar(){
+//         console.log ('${this.nombre} hace un sonido.');
+//     }
+// }
+
+
+// //clase derivada o subclase
+// class Perro extends Animal {
+//     hablar(){
+//         console.log('${this.nombre} ladra.');
+//     }
+// }
+
+// const miPerro = new Perro('max');
+// miPerro.hablar();
+
+
+
+class Miclase {
+    x = 25;
+    metodo1(){
+        this.metodo2(this);
+    }
+
+    metodo2(objeto) {
+        console.log(objeto);
+    }
+}
+
+const s = new Miclase();
+s.metodo1();
+
+
+
+class Animal {
+    constructor(){
+        if (this.construtor === Animal){
+            throw new Error("no se puede instanciar una clase abtracta.");
+        }
+    }
+
+    hacerSonido(){
+        throw new Error("debe implementar el metodo hacerSonido().");
+    }
+}
+
+class Perro extends Animal {
+    hacerSonido(){
+        console.log("guau guau");
+    }
+}
+
+class Gato extends Animal {
+    hacerSonido(){
+        console.log("miau miau");
+    }
+}
+
+const perro = new Perro();
+Perro.hacerSonido(); 
+
+const gato = new Gato();
+Perro.hacerSonido();
+
+const Animal = new Animal();
