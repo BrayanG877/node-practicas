@@ -271,3 +271,156 @@ let defensa = Equipo.CrearJugador("Defensa");
 
 
 // score 0, jugador llamado dar numero aleatorio, sumar en lo que ya habia 
+
+
+class Observador {
+    actualizar(mensaje){
+        throw new Error("Se realizo un 'actualizar()'a favor.");
+    }
+}
+
+
+
+class jugadores{
+    constructor(){
+        this.observadores=[];
+    }
+    agregarJugador(jugadores){
+        this.observadores.push(jugadores);
+    }
+    Marcador(gol){
+        this.observadores.push(gol);
+    }
+    NotificarGol(mensajeGol){
+        this.observadores=this.observadores.filter(Math.random()==mensajeGol);
+    }
+    NotificarMarcador (marcador){
+        this.observadores.forEach(observador => observador.actualizar(marcador));
+    }
+}
+
+//factory metod
+
+import fs from 'fs';
+import readline from 'readline';
+
+const path = './db,json';
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
+
+function showMenu(){
+    console.log('\n=== CRUD en consola conn node.js===');
+    console.log('1.crear elemento');
+    console.log('2.listar elementos');
+    console.log('3.actualizar elementos');
+    console.log('4.eliminar elementos');
+    console.log('5.salir\n');
+
+    rl.question('seleciona una opcion:', handleMenu);
+}
+
+function handleMenu(option) {
+    switch(option){
+        case '1':
+            createItem();
+            break;
+        case '2':
+            listItem();
+            break;
+        case '3':
+            updateItem();
+            break;
+        case '4':
+            deleteItem();
+            break;
+        case '5':
+            rl.close();
+            break;
+        default:
+            console.log('opcion invalida.');
+    }
+}
+
+
+export function loadData(){
+    if(!fs.existsSync(path)){
+        fs.writeFileSync(path,"[]");
+        return[];
+    }
+    else {
+        const data = fs.readFileSync(path);
+        return JSON.parse(data);
+    }
+}
+
+export function saveData(data){
+    fs.writeFileSync(path,JSON.stringify(data,undefined,2));
+}
+
+
+
+function createItem(){
+    rl.question("Ingrese un nombre: ", (name)=> {
+        const data = loadData();
+        const id = date.now();
+        data.push({id,name});
+        saveData(data);
+        console.log("elemento creado.");
+        showMenu();
+    });
+}
+
+showMenu();
+
+rl.on("close",()=> {
+    console.log("aplicacion finalizada.");
+    process.exit(0);
+});
+
+
+function listItem(){
+    const data=loadData();
+    console.log("\n===lista de elementos ===");
+    data.forEach((item) => {
+        console.log('ID: ${item.id} - Nombre:${item.name}');
+    });
+    showMenu
+}
+
+
+function updateItem(){
+    rl.question("ID del elemento a actualizar: ",(idStr)=>{
+        const id = parseInt(idStr);
+        const data = loadData();
+        const index = data.findIndex((item)=>item.id===id);
+        if(index === -1){
+            console.log("elemento no encontrado.");
+            showMenu();
+            return;
+        }
+
+        rl.question("Nuevo Nombre: ",(newName)=> {
+            data[index].name=newName;
+            saveData(data);
+            console.log("Elemento actualizado.");
+            showMenu();
+        });
+    });
+}
+
+
+
+function deleteItem(){
+    rl.question("Id del elemento a eliminar: ",(idStr)=>{
+        const id=parseInt(idStr);
+        let data= loadData();
+        const newData = data.filter((item)=> item.id !==id);
+        if(data.length===newData.length){
+            console.log("elemento no encontrado.");
+        }
+        showMenu();
+    });
+}
