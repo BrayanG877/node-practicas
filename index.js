@@ -115,3 +115,27 @@ rl.on("close", () => {
   console.log("Aplicación finalizada.");
   process.exit(0);
 });
+//ahora el ejercicio pero utilizando clases
+
+class Producto {
+  constructor(id, name) {
+    this.id = id;
+    this.name = name;
+  }
+}
+
+module.exports = Producto;
+
+//importacion de la clase producto
+const fs = require("fs");
+const Producto = require("./Producto");
+
+//creacion de la clase administradora de la tienda
+
+class Administrador {
+  constructor(filePath){
+    this.filePath= filePath;
+    this.initializeFile();
+  }
+}
+
